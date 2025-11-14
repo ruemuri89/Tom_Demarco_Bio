@@ -1,0 +1,201 @@
+[
+  {
+    "model": "bio.work",
+    "pk": 1,
+    "fields": {
+      "title": "Structured Analysis and System Specification",
+      "subtitle": "",
+      "year_published": 1979,
+      "work_type": "book",
+      "description": "One of the foundational books that defined the discipline of structured analysis for software systems. Introduced data flow diagrams (DFDs) and provided rigorous methods for decomposing large systems.",
+      "key_ideas": "Structured analysis, Data Flow Diagrams (DFDs), model-based decomposition, hierarchical system design.",
+      "impact": "This book shaped modern systems analysis practices and influenced generations of software engineers and systems architects. It established DFDs as a mainstream modeling tool.",
+      "slug": "structured-analysis-and-system-specification"
+    }
+  },
+  {
+    "model": "bio.work",
+    "pk": 2,
+    "fields": {
+      "title": "Peopleware: Productive Projects and Teams",
+      "subtitle": "",
+      "year_published": 1987,
+      "work_type": "book",
+      "description": "A groundbreaking book co-authored with Timothy Lister about the social and human aspects of software development. Argued that team productivity is more constrained by environment and culture than by technology.",
+      "key_ideas": "Psychology of teams, workplace environment, flow time, interruptions, office design, management fallacies.",
+      "impact": "Revolutionized thinking on software team management. Helped shift the industry toward valuing quiet workspaces, reduced interruptions, and better team dynamics.",
+      "slug": "peopleware"
+    }
+  },
+  {
+    "model": "bio.work",
+    "pk": 3,
+    "fields": {
+      "title": "Controlling Software Projects: Management, Measurement, and Estimation",
+      "subtitle": "",
+      "year_published": 1982,
+      "work_type": "book",
+      "description": "DeMarco introduced quantitative models for software estimation and metrics. Famous for the quote 'You can't control what you can't measure.'",
+      "key_ideas": "Metrics, cost estimation, size estimation, productivity models, measurement theory.",
+      "impact": "Influential in establishing measurement as a formal discipline in software engineering. Many estimation frameworks derive from this work.",
+      "slug": "controlling-software-projects"
+    }
+  },
+  {
+    "model": "bio.work",
+    "pk": 4,
+    "fields": {
+      "title": "Slack: Getting Past Burnout, Busywork, and the Myth of Total Efficiency",
+      "year_published": 2001,
+      "work_type": "book",
+      "description": "A management-focused book arguing that organizations need slack (extra capacity) to innovate, think strategically, and prevent burnout.",
+      "key_ideas": "Capacity planning, slack time, strategic thinking, anti-busyness, burnout prevention.",
+      "impact": "Deeply influenced agile and lean thinking; validated the idea of sustainable pace and human-centric planning.",
+      "slug": "slack"
+    }
+  },
+
+  {
+    "model": "bio.work",
+    "pk": 5,
+    "fields": {
+      "title": "Waltzing with Bears: Managing Risk on Software Projects",
+      "year_published": 2003,
+      "work_type": "book",
+      "description": "Co-authored with Timothy Lister, this book explores how to analyze and manage project risks through probabilistic thinking.",
+      "key_ideas": "Risk distributions, project uncertainty, Monte Carlo simulations, cost of delay, risk exposure.",
+      "impact": "Helped normalize probabilistic project planning and realistic schedules. Widely used in project management courses.",
+      "slug": "waltzing-with-bears"
+    }
+  },
+
+  {
+    "model": "bio.quote",
+    "pk": 1,
+    "fields": {
+      "text": "You can't control what you can't measure.",
+      "source": "Controlling Software Projects",
+      "year": 1982,
+      "theme": "measurement"
+    }
+  },
+  {
+    "model": "bio.quote",
+    "pk": 2,
+    "fields": {
+      "text": "The major problems of our work are not so much technological as sociological in nature.",
+      "source": "Peopleware",
+      "year": 1987,
+      "theme": "peopleware"
+    }
+  },
+  {
+    "model": "bio.quote",
+    "pk": 3,
+    "fields": {
+      "text": "If you have no slack, then you have no choice.",
+      "source": "Slack",
+      "year": 2001,
+      "theme": "slack"
+    }
+  },
+  {
+    "model": "bio.quote",
+    "pk": 4,
+    "fields": {
+      "text": "Risk management is project management for adults.",
+      "source": "Waltzing with Bears",
+      "year": 2003,
+      "theme": "risk"
+    }
+  },
+
+  {
+    "model": "bio.timelineevent",
+    "pk": 1,
+    "fields": {
+      "year": 1940,
+      "title": "Born in Pennsylvania, USA",
+      "description": "Thomas A. DeMarco was born on August 20, 1940.",
+      "category": "life",
+      "order_in_year": 1
+    }
+  },
+  {
+    "model": "bio.timelineevent",
+    "pk": 2,
+    "fields": {
+      "year": 1960,
+      "title": "Graduated from Cornell University",
+      "description": "Completed his degree in electrical engineering.",
+      "category": "career",
+      "order_in_year": 1
+    }
+  },
+  {
+    "model": "bio.timelineevent",
+    "pk": 3,
+    "fields": {
+      "year": 1970,
+      "title": "Worked at Bell Telephone Laboratories",
+      "description": "Became a leader in the early development of software engineering practices.",
+      "category": "career",
+      "order_in_year": 2
+    }
+  },
+  {
+    "model": "bio.timelineevent",
+    "pk": 4,
+    "fields": {
+      "year": 1979,
+      "title": "Published Structured Analysis and System Specification",
+      "description": "Defined structured analysis practices, including DFDs.",
+      "category": "publication",
+      "order_in_year": 1
+    }
+  },
+  {
+    "model": "bio.timelineevent",
+    "pk": 5,
+    "fields": {
+      "year": 1982,
+      "title": "Published Controlling Software Projects",
+      "description": "Influential book introducing measurement and estimation concepts.",
+      "category": "publication",
+      "order_in_year": 1
+    }
+  },
+  {
+    "model": "bio.timelineevent",
+    "pk": 6,
+    "fields": {
+      "year": 1987,
+      "title": "Published Peopleware",
+      "description": "Revolutionized thinking about human factors in software development.",
+      "category": "publication",
+      "order_in_year": 1
+    }
+  },
+  {
+    "model": "bio.timelineevent",
+    "pk": 7,
+    "fields": {
+      "year": 2001,
+      "title": "Published Slack",
+      "description": "Introduced concepts of organizational slack and anti-busyness.",
+      "category": "publication",
+      "order_in_year": 1
+    }
+  },
+  {
+    "model": "bio.timelineevent",
+    "pk": 8,
+    "fields": {
+      "year": 2003,
+      "title": "Published Waltzing with Bears",
+      "description": "Focused on risk and uncertainty in software projects.",
+      "category": "publication",
+      "order_in_year": 1
+    }
+  }
+]
