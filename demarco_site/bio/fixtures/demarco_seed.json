@@ -197,5 +197,203 @@
       "category": "publication",
       "order_in_year": 1
     }
+  },
+  {
+  "model": "bio.concept",
+  "pk": 1,
+  "fields": {
+    "name": "Structured Analysis",
+    "slug": "structured-analysis",
+    "summary": "A methodical approach to analyzing and designing information systems using data flow diagrams and hierarchical decomposition.",
+    "detailed_explanation": "Structured Analysis relies on Data Flow Diagrams (DFDs) to represent how information moves through a system. DeMarco emphasized understanding processes, data stores, and the flow of information before writing code.",
+    "interactive_widget_key": "dfd_explorer",
+    "category": "system analysis"
   }
+},
+{
+  "model": "bio.concept",
+  "pk": 2,
+  "fields": {
+    "name": "Peopleware",
+    "slug": "peopleware",
+    "summary": "The idea that software productivity is primarily affected by cultural, environmental, and sociological factors rather than technology.",
+    "detailed_explanation": "Peopleware argues that interruptions, poor office design, lack of quiet time, and mismanagement are the largest contributors to poor productivity. The book helped shift attention from technical barriers to human factors.",
+    "interactive_widget_key": "productivity_simulator",
+    "category": "human factors"
+  }
+},
+{
+  "model": "bio.concept",
+  "pk": 3,
+  "fields": {
+    "name": "Flow Time",
+    "slug": "flow-time",
+    "summary": "The uninterrupted time required for deep knowledge work.",
+    "detailed_explanation": "DeMarco’s studies showed that interruptions can reduce productivity by destroying 'flow', requiring 15–30 minutes to recover. The concept heavily influenced workplace design and agile practices.",
+    "interactive_widget_key": "flow_interrupt_tool",
+    "category": "productivity"
+  }
+},
+{
+  "model": "bio.concept",
+  "pk": 4,
+  "fields": {
+    "name": "Slack",
+    "slug": "slack",
+    "summary": "Slack represents organizational breathing room—unused capacity that enables innovation, learning, and resilience.",
+    "detailed_explanation": "In his book 'Slack', DeMarco argued that organizations operating at 100% utilization cannot respond to change, innovate, or prevent burnout. Slack correlates directly with decision-making freedom.",
+    "interactive_widget_key": "slack_capacity_tool",
+    "category": "management"
+  }
+},
+{
+  "model": "bio.concept",
+  "pk": 5,
+  "fields": {
+    "name": "Measurement Fallacies",
+    "slug": "measurement-fallacies",
+    "summary": "The idea that not everything important can be measured, and not all measurements lead to better control.",
+    "detailed_explanation": "DeMarco challenged his earlier belief that measurement was the key to control by later admitting that overmeasuring performance can distort behavior and destroy trust.",
+    "interactive_widget_key": "measurement_explorer",
+    "category": "measurement"
+  }
+},
+{
+  "model": "bio.concept",
+  "pk": 6,
+  "fields": {
+    "name": "Cost of Delay",
+    "slug": "cost-of-delay",
+    "summary": "A model for understanding the economic impact of delaying a project or feature.",
+    "detailed_explanation": "DeMarco used risk curves and probabilistic models to show how delays compound risk and cost. This concept is widely used in modern lean/agile planning.",
+    "interactive_widget_key": "delay_cost_simulator",
+    "category": "risk"
+  }
+},
+{
+  "model": "bio.concept",
+  "pk": 7,
+  "fields": {
+    "name": "Project Risk Distributions",
+    "slug": "project-risk-distributions",
+    "summary": "Understanding project durations and outcomes through probability distributions instead of single-point estimates.",
+    "detailed_explanation": "Popularized in 'Waltzing with Bears', DeMarco argued that software estimates are inherently probabilistic and should be modeled with ranges and distributions.",
+    "interactive_widget_key": "risk_distribution_chart",
+    "category": "risk"
+  }
+},
+{
+  "model": "bio.concept",
+  "pk": 8,
+  "fields": {
+    "name": "Monte Carlo Simulation for Projects",
+    "slug": "monte-carlo-projects",
+    "summary": "A method to simulate thousands of possible project timelines to reveal risk exposure and realistic ranges.",
+    "detailed_explanation": "DeMarco promoted Monte Carlo simulation to replace unrealistic single-date estimations. This approach is now standard in advanced PM tools.",
+    "interactive_widget_key": "monte_carlo_widget",
+    "category": "risk"
+  }
+},
+{
+  "model": "bio.concept",
+  "pk": 9,
+  "fields": {
+    "name": "Team Communication Overhead",
+    "slug": "communication-overhead",
+    "summary": "The principle that adding more people to a project increases communication pathways and can reduce overall productivity.",
+    "detailed_explanation": "DeMarco demonstrated that team productivity does not scale linearly with team size due to coordination and communication overhead. This influenced agile team size norms (~5–9 people).",
+    "interactive_widget_key": "team_size_simulator",
+    "category": "human factors"
+  }
+},
+{
+  "model": "bio.influence",
+  "pk": 1,
+  "fields": {
+    "name": "Timothy Lister",
+    "influence_type": "person",
+    "description": "Co-author of Peopleware and Waltzing with Bears. Collaborated with DeMarco on team productivity and project risk research.",
+    "related_work": ["2", "5"],
+    "weight": 9
+  }
+},
+{
+  "model": "bio.influence",
+  "pk": 2,
+  "fields": {
+    "name": "Ed Yourdon",
+    "influence_type": "person",
+    "description": "Leader in structured analysis and structured programming movements. DeMarco’s work influenced Yourdon's methods.",
+    "related_work": ["1"],
+    "weight": 7
+  }
+},
+{
+  "model": "bio.influence",
+  "pk": 3,
+  "fields": {
+    "name": "Barry Boehm",
+    "influence_type": "person",
+    "description": "Author of the COCOMO model and Spiral Model. Boehm’s work on estimation and risk was shaped by DeMarco’s measurement and risk concepts.",
+    "related_work": ["3", "5"],
+    "weight": 6
+  }
+},
+{
+  "model": "bio.influence",
+  "pk": 4,
+  "fields": {
+    "name": "Steve McConnell",
+    "influence_type": "person",
+    "description": "Author of Code Complete and Rapid Development. Frequently cites DeMarco’s Peopleware and measurement work.",
+    "related_work": ["2", "3"],
+    "weight": 5
+  }
+},
+{
+  "model": "bio.influence",
+  "pk": 5,
+  "fields": {
+    "name": "Agile & Lean Software Development",
+    "influence_type": "field",
+    "description": "DeMarco’s emphasis on people, slack, team size, and risk influenced core agile and lean principles.",
+    "related_work": ["2", "4", "5"],
+    "weight": 10
+  }
+},
+{
+  "model": "bio.influence",
+  "pk": 6,
+  "fields": {
+    "name": "Data Flow Diagrams (DFDs)",
+    "influence_type": "practice",
+    "description": "Became a major modeling methodology due to DeMarco’s structured analysis work.",
+    "related_work": ["1"],
+    "weight": 8
+  }
+},
+{
+  "model": "bio.influence",
+  "pk": 7,
+  "fields": {
+    "name": "Risk-Based Project Management",
+    "influence_type": "practice",
+    "description": "DeMarco’s emphasis on risk distributions and uncertainty fundamentally changed how large projects are planned.",
+    "related_work": ["5"],
+    "weight": 9
+  }
+},
+{
+  "model": "bio.influence",
+  "pk": 8,
+  "fields": {
+    "name": "Modern Workplace Design",
+    "influence_type": "field",
+    "description": "Peopleware influenced quiet workspaces, team rooms, and reduced interruptions. Ideas widely adopted in tech firms.",
+    "related_work": ["2"],
+    "weight": 7
+  }
+}
+
+
 ]
