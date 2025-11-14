@@ -1,0 +1,57 @@
+{% extends "bio/base.html" %}
+
+{% block title %}Home | Tom DeMarco{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h2>Architect of Modern Software Engineering</h2>
+    <p class="hero-quote">
+        “You can’t control what you can’t measure.”
+    </p>
+    <p>
+        Explore Tom DeMarco’s life, ideas, and lasting impact on how we build software.
+    </p>
+</section>
+
+<section class="home-section">
+    <h3>Featured Works</h3>
+    <div class="card-grid">
+        {% for work in featured_works %}
+            <article class="card">
+                <h4><a href="{% url 'bio:work_detail' slug=work.slug %}">{{ work.title }}</a></h4>
+                {% if work.year_published %}
+                    <p class="muted">{{ work.year_published }}</p>
+                {% endif %}
+                <p>{{ work.description|truncatewords:25 }}</p>
+            </article>
+        {% empty %}
+            <p>No works added yet.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="home-section">
+    <h3>Quotes</h3>
+    <ul class="quote-list">
+        {% for q in highlight_quotes %}
+            <li>“{{ q.text }}”{% if q.source %} — <span class="muted">{{ q.source }}</span>{% endif %}</li>
+        {% empty %}
+            <li>No quotes yet.</li>
+        {% endfor %}
+    </ul>
+</section>
+
+<section class="home-section">
+    <h3>Timeline Preview</h3>
+    <ul class="timeline-preview">
+        {% for e in timeline_events %}
+            <li>
+                <strong>{{ e.year }}</strong> – {{ e.title }}
+            </li>
+        {% empty %}
+            <li>No events yet.</li>
+        {% endfor %}
+    </ul>
+    <p><a href="{% url 'bio:timeline' %}">View full timeline →</a></p>
+</section>
+{% endblock %}
