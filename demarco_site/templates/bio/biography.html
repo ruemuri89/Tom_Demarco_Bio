@@ -1,0 +1,146 @@
+{% extends "bio/base.html" %}
+{% load static %}
+
+{% block title %}Biography | Tom DeMarco{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/biography.css' %}">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+{% endblock %}
+
+{% block content %}
+
+<!-- ============================
+     HERO HEADER
+=============================== -->
+<section class="bio-hero" data-aos="fade-down">
+    <h1>Tom DeMarco</h1>
+    <p class="subtitle">Pioneer of Software Engineering, Organizational Productivity, and Human-Centric Development</p>
+</section>
+
+<!-- ============================
+     BIOGRAPHY OVERVIEW
+=============================== -->
+<section class="bio-section">
+    <div class="bio-grid">
+
+        <div class="bio-text" data-aos="fade-right">
+            <h2>About</h2>
+            <p>
+                Thomas A. DeMarco (born 1940) is one of the most influential figures in modern 
+                software engineering, best known for reshaping how teams build, measure, and 
+                manage complex systems. His work emphasized human factors, organizational culture,
+                and realistic project management practices long before they became industry norms.
+            </p>
+
+            <p>
+                DeMarco helped formalize structured analysis through groundbreaking modeling 
+                techniques, introduced quantitative project measurement, and co-authored 
+                <i>Peopleware</i>, widely considered one of the most important books ever written 
+                about software teams.
+            </p>
+
+            <p>
+                His ideas fueled major shifts toward agile thinking, sustainable pace, 
+                and human-centric engineering culture.
+            </p>
+        </div>
+
+        <div class="bio-photo" data-aos="fade-left">
+            <img src="{% static 'img/demarco.jpg' %}" alt="Tom DeMarco portrait">
+        </div>
+
+    </div>
+</section>
+
+<!-- ============================
+     KEY CONTRIBUTIONS
+=============================== -->
+<section class="bio-section" data-aos="fade-up">
+    <h2>Key Contributions</h2>
+
+    <ul class="contrib-list">
+        <li>Founded the discipline of <strong>Structured Analysis</strong> and Data Flow Diagrams (DFDs)</li>
+        <li>Shifted the industry's focus to <strong>human factors</strong> in software development</li>
+        <li>Introduced quantitative <strong>software measurement and estimation</strong></li>
+        <li>Pioneered organizational theories around <strong>Slack</strong>, <strong>flow time</strong>, and <strong>capacity</strong></li>
+        <li>Promoted risk-based thinking with <strong>probabilistic project management</strong></li>
+    </ul>
+</section>
+
+<!-- ============================
+     SELECTED WORKS
+=============================== -->
+<section class="bio-section" data-aos="fade-up">
+    <h2>Major Works</h2>
+
+    <div class="work-grid">
+        {% for work in works %}
+            <div class="work-card" data-aos="fade-in">
+                <h3>{{ work.title }}</h3>
+                <span class="work-year">{{ work.year_published }}</span>
+                <p>{{ work.description }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <a href="{% url 'works' %}" class="button">View Full Works</a>
+</section>
+
+<!-- ============================
+     CORE CONCEPTS
+=============================== -->
+<section class="bio-section" data-aos="fade-up">
+    <h2>Core Concepts</h2>
+    <div class="concept-grid">
+        {% for concept in concepts %}
+            <div class="concept-card" data-aos="fade-up">
+                <h3>{{ concept.name }}</h3>
+                <p>{{ concept.summary }}</p>
+                <a href="{% url 'ideas_lab' %}#{{ concept.slug }}" class="link">Explore Concept</a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <a href="{% url 'ideas_lab' %}" class="button">Explore the Ideas Lab</a>
+</section>
+
+<!-- ============================
+     INFLUENCE SECTION
+=============================== -->
+<section class="bio-section" data-aos="fade-up">
+    <h2>Influence & Legacy</h2>
+
+    <div class="influence-grid">
+        {% for item in influences %}
+            <div class="influence-card" data-aos="fade-in">
+                <h3>{{ item.name }}</h3>
+                <p>{{ item.description }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- ============================
+     QUOTES
+=============================== -->
+<section class="bio-section" data-aos="fade-up">
+    <h2>Notable Quotes</h2>
+    <div class="quote-list">
+        {% for quote in quotes %}
+            <blockquote class="quote" data-aos="fade-up">
+                <p>"{{ quote.text }}"</p>
+                <footer>— {{ quote.source }} ({{ quote.year }})</footer>
+            </blockquote>
+        {% endfor %}
+    </div>
+</section>
+
+<a href="{% url 'timeline' %}" class="button center">Explore Full Timeline</a>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>AOS.init({ duration: 900, easing: 'ease-out-cubic' });</script>
+{% endblock %}

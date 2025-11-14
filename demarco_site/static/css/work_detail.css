@@ -1,0 +1,95 @@
+.work-hero {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.work-hero h1 {
+    font-size: 2.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 0.3rem;
+}
+
+.work-year {
+    font-size: 1rem;
+    color: #2563eb;
+    font-weight: bold;
+}
+
+.work-content {
+    max-width: 900px;
+    margin: auto;
+    display: grid;
+    gap: 1.5rem;
+}
+
+.desc-card,
+.ideas-card,
+.impact-card {
+    background: #fff;
+    padding: 1.2rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.work-section {
+    max-width: 900px;
+    margin: 3rem auto;
+}
+
+.concept-grid,
+.influence-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.concept-card,
+.influence-card {
+    padding: 1rem;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+    text-decoration: none;
+    color: inherit;
+    transition: 0.2s;
+}
+
+.concept-card:hover {
+    background: #f0f8ff;
+    transform: translateY(-3px);
+}
+
+.quote-list {
+    margin-top: 1rem;
+}
+
+.quote-card {
+    background: #f9fafb;
+    padding: 1rem 1.5rem;
+    border-left: 4px solid #2563eb;
+    border-radius: 8px;
+    margin-bottom: 1.2rem;
+}
+
+.work-nav {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.button {
+    padding: 0.7rem 1.4rem;
+    background: #2563eb;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.2s ease;
+}
+
+.button:hover {
+    background: #1e4fb5;
+}
