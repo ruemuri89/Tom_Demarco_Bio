@@ -1,0 +1,37 @@
+{% extends "bio/base.html" %}
+{% load static %}
+
+{% block title %}Ideas Lab | Tom DeMarco{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/ideas_lab.css' %}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block content %}
+<h1>Interactive Ideas Lab</h1>
+<p>Explore Tom DeMarco's major concepts through interactive simulations.</p>
+
+<div id="ideas-lab-container">
+    {% for concept in concepts %}
+        <div class="concept-card">
+            <h2>{{ concept.name }}</h2>
+            <p>{{ concept.summary }}</p>
+
+            <!-- Widget container -->
+            <div class="widget" id="{{ concept.slug }}"></div>
+
+            <!-- Detailed explanation collapsible -->
+            <details>
+                <summary>Learn more</summary>
+                <p>{{ concept.detailed_explanation }}</p>
+            </details>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/ideas_lab.js' %}"></script>
+{% endblock %}
