@@ -1,0 +1,106 @@
+{% extends "bio/base.html" %}
+{% load static %}
+
+{% block title %}{{ work.title }} | Tom DeMarco{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/work_detail.css' %}">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+{% endblock %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="work-hero" data-aos="fade-down">
+    <h1>{{ work.title }}</h1>
+    
+    {% if work.subtitle %}
+        <h2 class="subtitle">{{ work.subtitle }}</h2>
+    {% endif %}
+
+    <p class="work-year">{{ work.year_published }}</p>
+</section>
+
+<!-- MAIN CONTENT SECTION -->
+<section class="work-content">
+
+    <!-- DESCRIPTION -->
+    <div class="desc-card" data-aos="fade-up">
+        <h2>Description</h2>
+        <p>{{ work.description }}</p>
+    </div>
+
+    <!-- KEY IDEAS -->
+    {% if work.key_ideas %}
+    <div class="ideas-card" data-aos="fade-up" data-aos-delay="150">
+        <h2>Key Ideas</h2>
+        <p>{{ work.key_ideas }}</p>
+    </div>
+    {% endif %}
+
+    <!-- IMPACT -->
+    {% if work.impact %}
+    <div class="impact-card" data-aos="fade-up" data-aos-delay="300">
+        <h2>Impact</h2>
+        <p>{{ work.impact }}</p>
+    </div>
+    {% endif %}
+
+</section>
+
+<!-- RELATED CONCEPTS -->
+{% if work.related_concepts.exists %}
+<section class="work-section" data-aos="fade-up">
+    <h2>Related Concepts</h2>
+    <div class="concept-grid">
+        {% for concept in work.related_concepts.all %}
+        <a href="{% url 'ideas_lab' %}#{{ concept.slug }}" class="concept-card">
+            <h3>{{ concept.name }}</h3>
+            <p>{{ concept.summary }}</p>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<!-- RELATED INFLUENCES -->
+{% if work.influence_set.all %}
+<section class="work-section" data-aos="fade-up">
+    <h2>Influences Connected to This Work</h2>
+    <div class="influence-grid">
+        {% for influence in work.influence_set.all %}
+        <div class="influence-card">
+            <h3>{{ influence.name }}</h3>
+            <p>{{ influence.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<!-- QUOTES FROM THE WORK -->
+{% if work.quote_set.all %}
+<section class="work-section" data-aos="fade-up">
+    <h2>Quotes From This Work</h2>
+    <div class="quote-list">
+        {% for quote in work.quote_set.all %}
+        <blockquote class="quote-card" data-aos="fade-up">
+            <p>"{{ quote.text }}"</p>
+            <footer>{{ quote.source }} ({{ quote.year }})</footer>
+        </blockquote>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<!-- NAVIGATION -->
+<section class="work-nav">
+    <a href="{% url 'works' %}" class="button">← Back to Works</a>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>AOS.init({ duration: 800, easing: "ease-out-cubic" });</script>
+{% endblock %}
