@@ -14,7 +14,7 @@
 
 <div id="ideas-lab-container">
     {% for concept in concepts %}
-        <div class="concept-card">
+        <div class="concept-card" data-aos="fade-up">
             <h2>{{ concept.name }}</h2>
             <p>{{ concept.summary }}</p>
 
@@ -22,7 +22,7 @@
             <div class="widget" id="{{ concept.slug }}"></div>
 
             <!-- Detailed explanation collapsible -->
-            <details>
+            <details data-aos="fade-in">
                 <summary>Learn more</summary>
                 <p>{{ concept.detailed_explanation }}</p>
             </details>
