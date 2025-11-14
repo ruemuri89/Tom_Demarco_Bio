@@ -1,0 +1,130 @@
+{% extends "bio/base.html" %}
+
+{% block title %}Works by Tom DeMarco{% endblock %}
+
+{% block content %}
+<div class="container page-section">
+
+    <h1 class="page-title" data-aos="fade-up">
+        Works by Tom DeMarco
+    </h1>
+
+    <!-- =============== FILTERS ================= -->
+    <div class="filter-bar" data-aos="fade-up" data-aos-delay="150">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="book">Books</button>
+        <button class="filter-btn" data-filter="paper">Papers</button>
+        <button class="filter-btn" data-filter="other">Other</button>
+    </div>
+
+    <!-- =============== WORK GRID =============== -->
+    <div class="work-grid">
+        {% for work in works %}
+            <a href="{% url 'bio:work_detail' work.pk %}" 
+               class="work-card" 
+               data-type="{{ work.work_type }}"
+               data-aos="fade-up"
+               data-aos-delay="{{ forloop.counter0|add:1 }}00">
+
+                <h3>{{ work.title }}</h3>
+
+                {% if work.subtitle %}
+                <p class="subtitle">{{ work.subtitle }}</p>
+                {% endif %}
+
+                <span class="work-year">{{ work.year_published }}</span>
+
+                <p class="desc">
+                    {{ work.description|truncatechars:180 }}
+                </p>
+
+                <span class="more-link">View Details →</span>
+            </a>
+        {% endfor %}
+    </div>
+
+</div>
+
+<style>
+    .filter-bar {
+        margin-bottom: 1.5rem;
+        display: flex;
+        gap: 1rem;
+    }
+    .filter-btn {
+        padding: 8px 16px;
+        background: #eee;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background .2s;
+    }
+    .filter-btn.active,
+    .filter-btn:hover {
+        background: #2563eb;
+        color: #fff;
+    }
+
+    .work-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+    }
+    .work-card {
+        padding: 1rem 1.25rem;
+        border-radius: 10px;
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        text-decoration: none;
+        color: inherit;
+        transition: transform .2s, box-shadow .2s;
+    }
+    .work-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    .work-year {
+        font-size: 0.85rem;
+        font-weight: bold;
+        color: #2563eb;
+    }
+    .subtitle {
+        color: #666;
+        margin-bottom: .5rem;
+    }
+    .more-link {
+        margin-top: .5rem;
+        display: inline-block;
+        color: #2563eb;
+    }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const buttons = document.querySelectorAll(".filter-btn");
+    const cards = document.querySelectorAll(".work-card");
+
+    buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            buttons.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+
+            const filter = btn.dataset.filter;
+
+            cards.forEach(card => {
+                const type = card.dataset.type;
+
+                if (filter === "all" || filter === type) {
+                    card.style.display = "block";
+                    card.classList.remove("hidden");
+                } else {
+                    card.style.display = "none";
+                    card.classList.add("hidden");
+                }
+            });
+        });
+    });
+});
+</script>
+
+{% endblock %}
