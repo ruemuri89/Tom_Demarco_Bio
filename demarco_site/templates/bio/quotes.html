@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'bio/css/quotes.css' %}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<div class="quotes-hero" data-gsap="fade-in">
+    <h1>Quotes by Tom DeMarco</h1>
+    <p class="subtitle">Insights on peopleware, risk, productivity, and how real software work gets done.</p>
+</div>
+
+<!-- <section class="quotes-filter">
+    <label for="theme-filter">Filter by theme:</label>
+    <select id="theme-filter">
+        <option value="">All Themes</option>
+
+        {% for q in quotes %}
+            {% if q.theme %}
+                <option value="{{ q.theme }}">{{ q.theme|title }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+</section> -->
+
+<section class="quotes-list">
+    {% for quote in quotes %}
+        <div class="quote-card" data-theme="{{ quote.theme }}" data-gsap="fade-up">
+            <p class="quote-text">“{{ quote.text }}”</p>
+
+            <div class="quote-meta">
+                {% if quote.source %}
+                    <span class="quote-source">{{ quote.source }}</span>
+                {% endif %}
+                {% if quote.year %}
+                    <span class="quote-year">({{ quote.year }})</span>
+                {% endif %}
+                {% if quote.theme %}
+                    <span class="quote-theme">{{ quote.theme }}</span>
+                {% endif %}
+            </div>
+        </div>
+    {% empty %}
+        <p>No quotes available.</p>
+    {% endfor %}
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    gsap.from("[data-gsap='fade-in']", {
+        opacity: 0,
+        y: 20,
+        duration: 0.8
+    });
+
+    gsap.from("[data-gsap='fade-up']", {
+        opacity: 0,
+        y: 30,
+        duration: 0.7,
+        stagger: 0.1
+    });
+
+    // simple filter
+    const filter = document.getElementById("theme-filter");
+    const cards = document.querySelectorAll(".quote-card");
+
+    filter.addEventListener("change", () => {
+        const theme = filter.value.toLowerCase();
+
+        cards.forEach(card => {
+            const cardTheme = card.dataset.theme.toLowerCase();
+
+            if (!theme || theme === cardTheme) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    });
+});
+</script>
+
+{% endblock %}

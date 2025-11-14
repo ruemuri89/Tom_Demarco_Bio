@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
-
+from django.urls import reverse
 
 class Work(models.Model):
     BOOK = "book"
@@ -21,6 +21,9 @@ class Work(models.Model):
     impact = models.TextField(help_text="Describe its impact on software engineering")
     slug = models.SlugField(unique=True, blank=True)
 
+    def get_absolute_url(self):
+        return reverse("bio:work_detail", kwargs={"slug": self.slug})
+    
     class Meta:
         ordering = ["year_published", "title"]
 

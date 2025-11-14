@@ -1,41 +1,53 @@
-{% extends "bio/base.html" %}
+{% extends "base.html" %}
+{% load static %}
 
 {% block title %}Works by Tom DeMarco{% endblock %}
 
 {% block content %}
 <div class="container page-section">
 
+    <!-- Page Header -->
     <h1 class="page-title" data-aos="fade-up">
         Works by Tom DeMarco
     </h1>
+    <p class="page-subtitle" data-aos="fade-up" data-aos-delay="100">
+        Books, articles, and foundational publications that shaped modern software engineering.
+    </p>
 
-    <!-- =============== FILTERS ================= -->
+    <!-- Filters -->
     <div class="filter-bar" data-aos="fade-up" data-aos-delay="150">
         <button class="filter-btn active" data-filter="all">All</button>
         <button class="filter-btn" data-filter="book">Books</button>
-        <button class="filter-btn" data-filter="paper">Papers</button>
-        <button class="filter-btn" data-filter="other">Other</button>
+        <button class="filter-btn" data-filter="article">Articles</button>
+        <button class="filter-btn" data-filter="paper">Papers / Reports</button>
     </div>
 
-    <!-- =============== WORK GRID =============== -->
+    <!-- Works Grid -->
     <div class="work-grid">
         {% for work in works %}
-            <a href="{% url 'bio:work_detail' work.pk %}" 
-               class="work-card" 
+            <a href="{% url 'bio:work_detail' work.slug %}"
+               class="work-card"
                data-type="{{ work.work_type }}"
                data-aos="fade-up"
                data-aos-delay="{{ forloop.counter0|add:1 }}00">
 
-                <h3>{{ work.title }}</h3>
+                <div class="card-header">
+                    <h3>{{ work.title }}</h3>
 
-                {% if work.subtitle %}
-                <p class="subtitle">{{ work.subtitle }}</p>
-                {% endif %}
+                    {% if work.subtitle %}
+                        <p class="subtitle">{{ work.subtitle }}</p>
+                    {% endif %}
+                </div>
 
-                <span class="work-year">{{ work.year_published }}</span>
+                <div class="meta">
+                    {% if work.year_published %}
+                        <span class="year">{{ work.year_published }}</span>
+                    {% endif %}
+                    <span class="type-tag">{{ work.get_work_type_display }}</span>
+                </div>
 
                 <p class="desc">
-                    {{ work.description|truncatechars:180 }}
+                    {{ work.description|truncatechars:200 }}
                 </p>
 
                 <span class="more-link">View Details →</span>
@@ -45,60 +57,102 @@
 
 </div>
 
+<!-- ----------------------------------------
+     Styles
+----------------------------------------- -->
 <style>
+    .page-title {
+        margin-bottom: 0.25rem;
+    }
+    .page-subtitle {
+        margin-bottom: 2rem;
+        color: #555;
+    }
+
+    /* Filter Buttons */
     .filter-bar {
-        margin-bottom: 1.5rem;
         display: flex;
         gap: 1rem;
+        margin-bottom: 2rem;
     }
     .filter-btn {
         padding: 8px 16px;
-        background: #eee;
+        background: #e2e8f0;
         border: none;
         border-radius: 6px;
         cursor: pointer;
-        transition: background .2s;
+        transition: background 0.25s, color 0.25s;
+        font-size: 0.9rem;
     }
-    .filter-btn.active,
-    .filter-btn:hover {
+    .filter-btn:hover,
+    .filter-btn.active {
         background: #2563eb;
         color: #fff;
     }
 
+    /* Grid & Cards */
     .work-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
         gap: 1.5rem;
     }
     .work-card {
-        padding: 1rem 1.25rem;
-        border-radius: 10px;
         background: #fff;
-        border: 1px solid #e2e8f0;
+        padding: 1.25rem 1.5rem;
+        border-radius: 10px;
+        border: 1px solid #e5e7eb;
         text-decoration: none;
         color: inherit;
-        transition: transform .2s, box-shadow .2s;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: transform 0.2s, box-shadow 0.2s;
+        overflow: hidden;
     }
     .work-card:hover {
         transform: translateY(-4px);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     }
-    .work-year {
-        font-size: 0.85rem;
+
+    /* Metadata */
+    .meta {
+        display: flex;
+        gap: 0.5rem;
+        margin: 0.5rem 0 1rem 0;
+        align-items: center;
+    }
+    .year {
         font-weight: bold;
         color: #2563eb;
     }
-    .subtitle {
-        color: #666;
-        margin-bottom: .5rem;
+    .type-tag {
+        background: #2563eb;
+        color: #fff;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.75rem;
     }
+
+    .subtitle {
+        color: #555;
+        margin-top: -0.25rem;
+    }
+
+    .desc {
+        color: #444;
+        margin-bottom: 1rem;
+    }
+
     .more-link {
-        margin-top: .5rem;
-        display: inline-block;
+        margin-top: auto;
         color: #2563eb;
+        font-weight: 600;
     }
 </style>
 
+<!-- ----------------------------------------
+     JS Filtering Logic
+----------------------------------------- -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     const buttons = document.querySelectorAll(".filter-btn");
@@ -106,9 +160,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     buttons.forEach(btn => {
         btn.addEventListener("click", () => {
+
+            // Activate button
             buttons.forEach(b => b.classList.remove("active"));
             btn.classList.add("active");
 
+            // Filter cards
             const filter = btn.dataset.filter;
 
             cards.forEach(card => {
@@ -116,10 +173,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (filter === "all" || filter === type) {
                     card.style.display = "block";
-                    card.classList.remove("hidden");
                 } else {
                     card.style.display = "none";
-                    card.classList.add("hidden");
                 }
             });
         });

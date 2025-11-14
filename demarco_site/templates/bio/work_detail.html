@@ -1,106 +1,141 @@
 {% extends "bio/base.html" %}
 {% load static %}
 
-{% block title %}{{ work.title }} | Tom DeMarco{% endblock %}
-
-{% block extra_head %}
-<link rel="stylesheet" href="{% static 'css/work_detail.css' %}">
-<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
-{% endblock %}
+{% block title %}{{ work.title }} – Work Details{% endblock %}
 
 {% block content %}
+<div class="container page-section">
 
-<!-- HERO SECTION -->
-<section class="work-hero" data-aos="fade-down">
-    <h1>{{ work.title }}</h1>
-    
-    {% if work.subtitle %}
-        <h2 class="subtitle">{{ work.subtitle }}</h2>
-    {% endif %}
+    <!-- Breadcrumb / Back -->
+    <a href="{% url 'bio:works' %}"
+       class="back-link"
+       data-aos="fade-right">
+        ← Back to Works
+    </a>
 
-    <p class="work-year">{{ work.year_published }}</p>
-</section>
+    <!-- Title -->
+    <header class="work-header" data-aos="fade-up">
+        <h1>{{ work.title }}</h1>
 
-<!-- MAIN CONTENT SECTION -->
-<section class="work-content">
+        {% if work.subtitle %}
+            <h2 class="subtitle">{{ work.subtitle }}</h2>
+        {% endif %}
 
-    <!-- DESCRIPTION -->
-    <div class="desc-card" data-aos="fade-up">
-        <h2>Description</h2>
-        <p>{{ work.description }}</p>
-    </div>
-
-    <!-- KEY IDEAS -->
-    {% if work.key_ideas %}
-    <div class="ideas-card" data-aos="fade-up" data-aos-delay="150">
-        <h2>Key Ideas</h2>
-        <p>{{ work.key_ideas }}</p>
-    </div>
-    {% endif %}
-
-    <!-- IMPACT -->
-    {% if work.impact %}
-    <div class="impact-card" data-aos="fade-up" data-aos-delay="300">
-        <h2>Impact</h2>
-        <p>{{ work.impact }}</p>
-    </div>
-    {% endif %}
-
-</section>
-
-<!-- RELATED CONCEPTS -->
-{% if work.related_concepts.exists %}
-<section class="work-section" data-aos="fade-up">
-    <h2>Related Concepts</h2>
-    <div class="concept-grid">
-        {% for concept in work.related_concepts.all %}
-        <a href="{% url 'ideas_lab' %}#{{ concept.slug }}" class="concept-card">
-            <h3>{{ concept.name }}</h3>
-            <p>{{ concept.summary }}</p>
-        </a>
-        {% endfor %}
-    </div>
-</section>
-{% endif %}
-
-<!-- RELATED INFLUENCES -->
-{% if work.influence_set.all %}
-<section class="work-section" data-aos="fade-up">
-    <h2>Influences Connected to This Work</h2>
-    <div class="influence-grid">
-        {% for influence in work.influence_set.all %}
-        <div class="influence-card">
-            <h3>{{ influence.name }}</h3>
-            <p>{{ influence.description }}</p>
+        <div class="meta">
+            {% if work.year_published %}
+                <span class="year"><strong>Published:</strong> {{ work.year_published }}</span>
+            {% endif %}
+            <span class="type">
+                <strong>Type:</strong> {{ work.get_work_type_display }}
+            </span>
         </div>
-        {% endfor %}
-    </div>
-</section>
-{% endif %}
+    </header>
 
-<!-- QUOTES FROM THE WORK -->
-{% if work.quote_set.all %}
-<section class="work-section" data-aos="fade-up">
-    <h2>Quotes From This Work</h2>
-    <div class="quote-list">
-        {% for quote in work.quote_set.all %}
-        <blockquote class="quote-card" data-aos="fade-up">
-            <p>"{{ quote.text }}"</p>
-            <footer>{{ quote.source }} ({{ quote.year }})</footer>
-        </blockquote>
-        {% endfor %}
-    </div>
-</section>
-{% endif %}
+    <!-- Description -->
+    <section class="description-section" data-aos="fade-up" data-aos-delay="150">
+        <h3>Summary</h3>
+        <p>{{ work.description }}</p>
+    </section>
 
-<!-- NAVIGATION -->
-<section class="work-nav">
-    <a href="{% url 'works' %}" class="button">← Back to Works</a>
-</section>
+    <!-- Key Ideas -->
+    <section class="ideas-section" data-aos="fade-up" data-aos-delay="250">
+        <h3>Key Ideas</h3>
+        <p>{{ work.key_ideas|linebreaks }}</p>
+    </section>
 
-{% endblock %}
+    <!-- Impact -->
+    <section class="impact-section" data-aos="fade-up" data-aos-delay="350">
+        <h3>Impact</h3>
+        <p>{{ work.impact|linebreaks }}</p>
+    </section>
 
-{% block extra_js %}
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>AOS.init({ duration: 800, easing: "ease-out-cubic" });</script>
+    <!-- Related Influences -->
+    {% if work.influence_set.all %}
+        <section class="influence-section" data-aos="fade-up" data-aos-delay="450">
+            <h3>Influenced</h3>
+
+            <ul class="influence-list">
+                {% for infl in work.influence_set.all %}
+                    <li>
+                        <strong>{{ infl.name }}</strong>
+                        <span class="tag">{{ infl.get_influence_type_display }}</span>
+                        <p>{{ infl.description|truncatechars:200 }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    {% endif %}
+
+</div>
+
+<!-- ----------------------------------------
+     Styles
+----------------------------------------- -->
+<style>
+    .back-link {
+        display: inline-block;
+        margin-bottom: 1rem;
+        color: #2563eb;
+        font-weight: 500;
+        text-decoration: none;
+    }
+    .back-link:hover {
+        text-decoration: underline;
+    }
+
+    .work-header h1 {
+        margin-bottom: 0.25rem;
+    }
+
+    .subtitle {
+        color: #555;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        font-size: 1.25rem;
+    }
+
+    .meta {
+        display: flex;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+        color: #444;
+    }
+
+    .meta span strong {
+        color: #111;
+    }
+
+    section {
+        margin-top: 2.5rem;
+    }
+
+    section h3 {
+        margin-bottom: 0.75rem;
+        color: #1f2937;
+    }
+
+    .influence-list {
+        list-style: none;
+        padding-left: 0;
+        margin-top: 1rem;
+    }
+
+    .influence-list li {
+        padding: 0.75rem 1rem;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        margin-bottom: 1rem;
+    }
+
+    .tag {
+        background: #2563eb;
+        color: white;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        margin-left: 0.5rem;
+    }
+</style>
+
 {% endblock %}

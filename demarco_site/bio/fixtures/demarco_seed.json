@@ -313,7 +313,7 @@
     "name": "Timothy Lister",
     "influence_type": "person",
     "description": "Co-author of Peopleware and Waltzing with Bears. Collaborated with DeMarco on team productivity and project risk research.",
-    "related_work": ["2", "5"],
+    "related_work": [2, 5],
     "weight": 9
   }
 },

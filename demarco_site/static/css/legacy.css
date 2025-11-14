@@ -1,0 +1,150 @@
+/* ===========================================
+   HERO
+=========================================== */
+
+.legacy-hero {
+    text-align: center;
+    padding: 5rem 10%;
+    background: linear-gradient(to bottom, #1e3a8a, #3b82f6);
+    color: white;
+}
+
+.legacy-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.legacy-hero p {
+    font-size: 1.25rem;
+    max-width: 800px;
+    margin: auto;
+}
+
+
+/* ===========================================
+   GENERAL SECTION
+=========================================== */
+
+.legacy-section {
+    padding: 4rem 10%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.section-sub {
+    margin-top: -1rem;
+    margin-bottom: 2rem;
+    color: #6b7280;
+}
+
+
+/* ===========================================
+   INFLUENCE CLOUD
+=========================================== */
+
+.influence-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.influence-tag {
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 0.5rem 1.2rem;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: 0.25s ease;
+}
+
+.influence-tag:hover {
+    background: #bae6fd;
+    transform: scale(1.1);
+}
+
+/* size scaling by weight */
+.influence-weight-10 { font-size: 2rem; }
+.influence-weight-9  { font-size: 1.7rem; }
+.influence-weight-8  { font-size: 1.5rem; }
+.influence-weight-7  { font-size: 1.3rem; }
+.influence-weight-6  { font-size: 1.15rem; }
+.influence-weight-5  { font-size: 1rem; }
+.influence-weight-4  { font-size: 0.9rem; }
+.influence-weight-3  { font-size: 0.85rem; }
+.influence-weight-2  { font-size: 0.8rem; }
+.influence-weight-1  { font-size: 0.75rem; }
+
+
+
+/* ===========================================
+   DETAIL LIST
+=========================================== */
+
+.influence-list {
+    display: grid;
+    gap: 2rem;
+}
+
+.influence-item {
+    background: white;
+    padding: 1.8rem;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.inf-type {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 5px;
+    background: #eef2ff;
+    color: #3730a3;
+    font-size: 0.85rem;
+}
+
+.related-works ul {
+    margin: 0.5rem 0 0;
+    padding-left: 1.3rem;
+}
+
+.related-works a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.related-works a:hover {
+    text-decoration: underline;
+}
+
+
+/* ===========================================
+   WORK REFERENCES
+=========================================== */
+
+.works-reference {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+}
+
+.work-ref {
+    display: block;
+    padding: 1rem;
+    text-decoration: none;
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    color: #111827;
+    transition: 0.25s ease;
+}
+
+.work-ref:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+}
+
+.work-ref p {
+    color: #6b7280;
+    margin: 0.25rem 0 0;
+}

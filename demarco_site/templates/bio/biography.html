@@ -1,146 +1,170 @@
-{% extends "bio/base.html" %}
+{% extends "base.html" %}
 {% load static %}
 
-{% block title %}Biography | Tom DeMarco{% endblock %}
-
-{% block extra_head %}
-<link rel="stylesheet" href="{% static 'css/biography.css' %}">
-<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
-{% endblock %}
-
 {% block content %}
+<link rel="stylesheet" href="{% static 'bio/css/biography.css' %}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-<!-- ============================
-     HERO HEADER
-=============================== -->
-<section class="bio-hero" data-aos="fade-down">
-    <h1>Tom DeMarco</h1>
-    <p class="subtitle">Pioneer of Software Engineering, Organizational Productivity, and Human-Centric Development</p>
+<div class="bio-hero">
+    <div class="bio-hero-content" data-gsap="fade-in">
+        <h1>Tom DeMarco</h1>
+        <p class="subtitle">Architect of Structured Analysis • Pioneer of Peopleware • Thinker on Risk & Productivity</p>
+    </div>
+</div>
+
+
+<!-- ============================================================
+     SECTION 1 — ORIGIN STORY
+=============================================================== -->
+<section class="bio-section" id="origin" data-gsap="fade-up">
+    <div class="bio-content">
+        <h2>The Origins of a Software Engineering Pioneer</h2>
+        <p>
+            Thomas A. DeMarco, born in 1940, entered software at a time when the idea of 
+            “software engineering” barely existed. A graduate of Cornell, he quickly became a 
+            leading figure at Bell Labs, helping define the discipline from the ground up.
+        </p>
+    </div>
+
+    {% for q in quotes %}
+        {% if q.theme == "peopleware" %}
+        <blockquote class="bio-quote" data-gsap="fade-left">
+            “{{ q.text }}”
+            <span class="bio-quote-source">— {{ q.source }}</span>
+        </blockquote>
+        {% endif %}
+    {% endfor %}
 </section>
 
-<!-- ============================
-     BIOGRAPHY OVERVIEW
-=============================== -->
-<section class="bio-section">
-    <div class="bio-grid">
 
-        <div class="bio-text" data-aos="fade-right">
-            <h2>About</h2>
-            <p>
-                Thomas A. DeMarco (born 1940) is one of the most influential figures in modern 
-                software engineering, best known for reshaping how teams build, measure, and 
-                manage complex systems. His work emphasized human factors, organizational culture,
-                and realistic project management practices long before they became industry norms.
-            </p>
 
-            <p>
-                DeMarco helped formalize structured analysis through groundbreaking modeling 
-                techniques, introduced quantitative project measurement, and co-authored 
-                <i>Peopleware</i>, widely considered one of the most important books ever written 
-                about software teams.
-            </p>
+<!-- ============================================================
+     SECTION 2 — STRUCTURED ANALYSIS STORY BLOCK
+=============================================================== -->
+<section class="bio-split" data-gsap="fade-right">
+    <div class="bio-split-text">
+        <h2>Structured Analysis & The Rise of DFDs</h2>
+        <p>
+            In the 1970s, DeMarco helped formalize how large systems should be decomposed, modeled, 
+            and reasoned about — long before UML or modern modeling tools existed.
+        </p>
+        <p>
+            His book <i>Structured Analysis and System Specification</i> became foundational, bringing 
+            Data Flow Diagrams (DFDs) into mainstream practice.
+        </p>
+        <a href="{% url 'bio:works' %}" class="bio-btn">Explore His Works</a>
+    </div>
 
-            <p>
-                His ideas fueled major shifts toward agile thinking, sustainable pace, 
-                and human-centric engineering culture.
-            </p>
-        </div>
-
-        <div class="bio-photo" data-aos="fade-left">
-            <img src="{% static 'img/demarco.jpg' %}" alt="Tom DeMarco portrait">
-        </div>
-
+    <div class="bio-split-image">
+        <img src="{% static 'bio/img/dfd_example.png' %}" alt="DFD Illustration">
     </div>
 </section>
 
-<!-- ============================
-     KEY CONTRIBUTIONS
-=============================== -->
-<section class="bio-section" data-aos="fade-up">
-    <h2>Key Contributions</h2>
 
-    <ul class="contrib-list">
-        <li>Founded the discipline of <strong>Structured Analysis</strong> and Data Flow Diagrams (DFDs)</li>
-        <li>Shifted the industry's focus to <strong>human factors</strong> in software development</li>
-        <li>Introduced quantitative <strong>software measurement and estimation</strong></li>
-        <li>Pioneered organizational theories around <strong>Slack</strong>, <strong>flow time</strong>, and <strong>capacity</strong></li>
-        <li>Promoted risk-based thinking with <strong>probabilistic project management</strong></li>
-    </ul>
+<!-- ============================================================
+     SECTION 3 — SIGNATURE WORKS (Marquee scroller)
+=============================================================== -->
+<section class="bio-section works-scroller" data-gsap="fade-up">
+    <h2>Signature Works</h2>
+
+    <div class="works-marquee">
+        <div class="marquee-track">
+            {% for work in works %}
+            <div class="marquee-card">
+                <h3>{{ work.title }}</h3>
+                <span>{{ work.year_published }}</span>
+                <p>{{ work.description|truncatechars:120 }}</p>
+                <a href="{% url 'bio:work_detail' slug=work.slug %}" class="bio-btn-small">Read More</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </section>
 
-<!-- ============================
-     SELECTED WORKS
-=============================== -->
-<section class="bio-section" data-aos="fade-up">
-    <h2>Major Works</h2>
 
-    <div class="work-grid">
-        {% for work in works %}
-            <div class="work-card" data-aos="fade-in">
-                <h3>{{ work.title }}</h3>
-                <span class="work-year">{{ work.year_published }}</span>
-                <p>{{ work.description }}</p>
-            </div>
+
+<!-- ============================================================
+     SECTION 4 — PEOPLEWARE & HUMAN FACTORS
+=============================================================== -->
+<section class="bio-split reverse" data-gsap="fade-left">
+    <div class="bio-split-image">
+        <img src="{% static 'bio/img/peopleware.jpg' %}" alt="Peopleware">
+    </div>
+
+    <div class="bio-split-text">
+        <h2>Peopleware: The Human Side of Software</h2>
+        <p>
+            DeMarco’s most profound insight was that software development is far more sociological 
+            than technological. Productivity depends on environment, culture, interruptions, and team health.
+        </p>
+
+        {% for q in quotes %}
+            {% if q.theme == "peopleware" %}
+            <blockquote class="bio-quote">
+                “{{ q.text }}”
+                <span class="bio-quote-source">— {{ q.source }}</span>
+            </blockquote>
+            {% endif %}
         {% endfor %}
     </div>
-
-    <a href="{% url 'works' %}" class="button">View Full Works</a>
 </section>
 
-<!-- ============================
-     CORE CONCEPTS
-=============================== -->
-<section class="bio-section" data-aos="fade-up">
+
+
+<!-- ============================================================
+     SECTION 5 — CORE CONCEPT GRID
+=============================================================== -->
+<section class="bio-section" id="concepts" data-gsap="fade-up">
     <h2>Core Concepts</h2>
     <div class="concept-grid">
         {% for concept in concepts %}
-            <div class="concept-card" data-aos="fade-up">
-                <h3>{{ concept.name }}</h3>
-                <p>{{ concept.summary }}</p>
-                <a href="{% url 'ideas_lab' %}#{{ concept.slug }}" class="link">Explore Concept</a>
-            </div>
+        <div class="concept-card" data-gsap="pop">
+            <h3>{{ concept.name }}</h3>
+            <p>{{ concept.summary }}</p>
+            <a href="{% url 'bio:ideas_lab' %}#{{ concept.slug }}" class="bio-btn-small">Explore Concept</a>
+        </div>
         {% endfor %}
     </div>
-
-    <a href="{% url 'ideas_lab' %}" class="button">Explore the Ideas Lab</a>
 </section>
 
-<!-- ============================
-     INFLUENCE SECTION
-=============================== -->
-<section class="bio-section" data-aos="fade-up">
+
+
+<!-- ============================================================
+     SECTION 6 — INFLUENCE NETWORK
+=============================================================== -->
+<section class="bio-section" id="influence" data-gsap="fade-up">
     <h2>Influence & Legacy</h2>
 
-    <div class="influence-grid">
-        {% for item in influences %}
-            <div class="influence-card" data-aos="fade-in">
-                <h3>{{ item.name }}</h3>
-                <p>{{ item.description }}</p>
-            </div>
+    <div class="influence-cloud">
+        {% for infl in influences %}
+        <span class="influence-tag influence-weight-{{ infl.weight }}" data-gsap="float">
+            {{ infl.name }}
+        </span>
         {% endfor %}
     </div>
+
+    <p class="influence-note">
+        The size and animation strength reflect relative influence weight.
+    </p>
 </section>
 
-<!-- ============================
-     QUOTES
-=============================== -->
-<section class="bio-section" data-aos="fade-up">
-    <h2>Notable Quotes</h2>
-    <div class="quote-list">
-        {% for quote in quotes %}
-            <blockquote class="quote" data-aos="fade-up">
-                <p>"{{ quote.text }}"</p>
-                <footer>— {{ quote.source }} ({{ quote.year }})</footer>
-            </blockquote>
-        {% endfor %}
-    </div>
+
+
+
+<!-- ============================================================
+     OUTRO SECTION
+=============================================================== -->
+<section class="bio-outro" data-gsap="fade-up">
+    <h2>A Lasting Legacy</h2>
+    <p>
+        From structured analysis to Peopleware and modern risk-based project planning,  
+        Tom DeMarco helped define how we build software — not just as systems, but as human endeavors.
+    </p>
+
+    <a href="{% url 'bio:legacy' %}" class="bio-btn">Explore Full Legacy</a>
 </section>
 
-<a href="{% url 'timeline' %}" class="button center">Explore Full Timeline</a>
 
-{% endblock %}
-
-{% block extra_js %}
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>AOS.init({ duration: 900, easing: 'ease-out-cubic' });</script>
+<script src="{% static 'bio/js/biography_gsap.js' %}"></script>
 {% endblock %}

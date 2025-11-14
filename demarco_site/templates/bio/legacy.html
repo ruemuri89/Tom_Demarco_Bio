@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Legacy – Tom DeMarco{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'bio/css/legacy.css' %}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<div class="legacy-hero">
+    <h1 data-aos="fade-up">The Legacy of Tom DeMarco</h1>
+    <p data-aos="fade-up" data-aos-delay="150">
+        DeMarco’s influence reshaped software engineering — from structured analysis
+        to human-centric team productivity, modern Agile thinking, and risk-based planning.
+    </p>
+</div>
+
+
+<!-- ============================
+     INFLUENCE CLOUD
+=============================== -->
+<section class="legacy-section">
+    <h2 data-aos="fade-in">Influence Cloud</h2>
+    <p class="section-sub">
+        Larger tags represent stronger influence (weight 1–10).
+    </p>
+
+    <div class="influence-cloud">
+        {% for inf in influences %}
+            <span class="influence-tag influence-weight-{{ inf.weight }}"
+                  data-aos="zoom-in"
+                  data-aos-delay="{{ forloop.counter0|add:50 }}">
+                {{ inf.name }}
+            </span>
+        {% endfor %}
+    </div>
+</section>
+
+
+<!-- ============================
+     INFLUENCE DETAIL LIST
+=============================== -->
+<section class="legacy-section">
+    <h2 data-aos="fade-in">Detailed Influence Overview</h2>
+
+    <div class="influence-list">
+        {% for inf in influences %}
+            <div class="influence-item" data-aos="fade-up">
+                <h3>{{ inf.name }}</h3>
+
+                <span class="inf-type">{{ inf.get_influence_type_display }}</span>
+
+                <p class="inf-description">{{ inf.description }}</p>
+
+                {% if inf.related_work.all %}
+                    <div class="related-works">
+                        <strong>Related Works:</strong>
+                        <ul>
+                            {% for w in inf.related_work.all %}
+                                <li>
+                                    <a href="{{ w.get_absolute_url }}">{{ w.title }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>No influence records found.</p>
+        {% endfor %}
+    </div>
+</section>
+
+
+<!-- ============================
+     WORKS REFERENCE SECTION
+=============================== -->
+<section class="legacy-section">
+    <h2 data-aos="fade-in">Referenced Works</h2>
+
+    <div class="works-reference">
+        {% for work in works %}
+            <a class="work-ref" href="{{ work.get_absolute_url }}" data-aos="fade-in">
+                <h4>{{ work.title }}</h4>
+                <p>{{ work.year_published }}</p>
+            </a>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}
