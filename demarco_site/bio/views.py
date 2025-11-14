@@ -9,18 +9,27 @@ class HomeView(TemplateView):
         ctx = super().get_context_data(**kwargs)
         ctx["highlight_quotes"] = Quote.objects.all()[:3]
         ctx["featured_works"] = Work.objects.all()[:3]
-        ctx["timeline_events"] = TimelineEvent.objects.all()[:5]
+        ctx["timeline_events"] = TimelineEvent.objects.order_by("year", "order_in_year")[:5]
         return ctx
 
 
 class BiographyView(TemplateView):
     template_name = "bio/biography.html"
 
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx["works"] = Work.objects.order_by("year_published")
+        ctx["concepts"] = Concept.objects.order_by("name")
+        ctx["influences"] = Influence.objects.order_by("-weight")
+        ctx["quotes"] = Quote.objects.order_by("year")
+        return ctx
+
 
 class WorkListView(ListView):
     model = Work
     template_name = "bio/works.html"
     context_object_name = "works"
+    ordering = ["year_published"]
 
 
 class WorkDetailView(DetailView):
@@ -30,16 +39,11 @@ class WorkDetailView(DetailView):
 
 
 class IdeasLabView(TemplateView):
-    """
-    This is where we’ll later wire in the interactive simulators
-    (team productivity, cost of delay, measurement fallacies, etc.)
-    via JS widgets that read the Concept models.
-    """
     template_name = "bio/ideas_lab.html"
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        ctx["concepts"] = Concept.objects.all()
+        ctx["concepts"] = Concept.objects.all().order_by("name")
         return ctx
 
 
@@ -48,7 +52,7 @@ class TimelineView(TemplateView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        ctx["events"] = TimelineEvent.objects.all()
+        ctx["events"] = TimelineEvent.objects.order_by("year", "order_in_year")
         return ctx
 
 
@@ -57,8 +61,8 @@ class LegacyView(TemplateView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        ctx["influences"] = Influence.objects.all()
-        ctx["works"] = Work.objects.all()
+        ctx["influences"] = Influence.objects.order_by("-weight")
+        ctx["works"] = Work.objects.order_by("year_published")
         return ctx
 
 
@@ -66,3 +70,4 @@ class QuoteListView(ListView):
     model = Quote
     template_name = "bio/quotes.html"
     context_object_name = "quotes"
+    ordering = ["year"]
