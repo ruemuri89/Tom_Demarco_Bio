@@ -2,8 +2,12 @@ from django.views.generic import TemplateView, ListView, DetailView
 from .models import Work, Quote, TimelineEvent, Concept, Influence
 from django.http import HttpResponse
 
-def test_view(request):
-    return HttpResponse("TEST VIEW WORKS!")
+class TestView(TemplateView):
+    template_name = "test.html"
+    
+    def test_view(request):
+        return HttpResponse("TEST VIEW WORKS!")
+
 class HomeView(TemplateView):
     template_name = "bio/home.html"
 
