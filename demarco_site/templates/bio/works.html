@@ -123,36 +123,4 @@
     }
 </style>
 
-<!-- ----------------------------------------
-     JS Filtering Logic
------------------------------------------ -->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const buttons = document.querySelectorAll(".filter-btn");
-    const cards = document.querySelectorAll(".work-card");
-
-    buttons.forEach(btn => {
-        btn.addEventListener("click", () => {
-
-            // Activate button
-            buttons.forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-
-            // Filter cards
-            const filter = btn.dataset.filter;
-
-            cards.forEach(card => {
-                const type = card.dataset.type;
-
-                if (filter === "all" || filter === type) {
-                    card.style.display = "block";
-                } else {
-                    card.style.display = "none";
-                }
-            });
-        });
-    });
-});
-</script>
-
 {% endblock %}
