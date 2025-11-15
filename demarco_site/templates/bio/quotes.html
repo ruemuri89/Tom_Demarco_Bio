@@ -10,19 +10,6 @@
     <p class="subtitle"><strong>Insights on peopleware, risk, productivity, and how real software work gets done.</strong></p>
 </div>
 
-<!-- <section class="quotes-filter">
-    <label for="theme-filter">Filter by theme:</label>
-    <select id="theme-filter">
-        <option value="">All Themes</option>
-
-        {% for q in quotes %}
-            {% if q.theme %}
-                <option value="{{ q.theme }}">{{ q.theme|title }}</option>
-            {% endif %}
-        {% endfor %}
-    </select>
-</section> -->
-
 <section class="quotes-list">
     {% for quote in quotes %}
         <div class="quote-card" data-theme="{{ quote.theme }}" data-gsap="fade-up">
