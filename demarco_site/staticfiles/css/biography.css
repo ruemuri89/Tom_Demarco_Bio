@@ -1,0 +1,328 @@
+/* ===========================================
+   GLOBAL TYPOGRAPHY & LAYOUT
+=========================================== */
+
+body {
+    font-family: "Inter", system-ui, sans-serif;
+    margin: 0;
+    background: #f9fafb;
+    color: #1f2937;
+    line-height: 1.65;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+    color: #111827;
+}
+
+h2 {
+    margin-bottom: 1rem;
+}
+
+p {
+    margin-bottom: 1rem;
+    color: #374151;
+}
+
+section {
+    padding: 5rem 10%;
+}
+
+.bio-btn,
+.bio-btn-small {
+    background: #2563eb;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    display: inline-block;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: 0.25s ease;
+}
+
+.bio-btn:hover,
+.bio-btn-small:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+}
+
+.bio-btn-small {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+}
+
+
+
+/* ===========================================
+   HERO SECTION (Parallax)
+=========================================== */
+
+.bio-hero {
+    height: 70vh;
+    background: url('../img/demarco_hero.jpg') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.bio-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.bio-hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 900px;
+    color: white;
+    padding: 2rem;
+}
+
+.bio-hero h1 {
+    font-size: 3.5rem;
+    letter-spacing: -1px;
+    margin-bottom: 1rem;
+}
+
+.bio-hero .subtitle {
+    font-size: 1.25rem;
+    opacity: 0.9;
+}
+
+
+
+/* ===========================================
+   STANDARD BIO SECTION
+=========================================== */
+
+.bio-section {
+    max-width: 1100px;
+    margin: auto;
+}
+
+.bio-content {
+    max-width: 850px;
+    margin: 0 auto 2rem;
+}
+
+
+
+/* ===========================================
+   SPLIT SECTIONS (Side-by-side)
+=========================================== */
+
+.bio-split {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.bio-split.reverse {
+    flex-direction: row-reverse;
+}
+
+.bio-split-text {
+    flex: 1;
+}
+
+.bio-split-image {
+    flex: 1;
+}
+
+.bio-split-image img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    transition: transform 0.4s ease;
+}
+
+.bio-split-image img:hover {
+    transform: scale(1.03);
+}
+
+
+/* ===========================================
+   QUOTES
+=========================================== */
+
+.bio-quote {
+    font-size: 1.3rem;
+    line-height: 1.5;
+    font-style: italic;
+    margin: 2rem 0;
+    padding-left: 1.5rem;
+    border-left: 4px solid #2563eb;
+    color: #1e3a8a;
+}
+
+.bio-quote-source {
+    display: block;
+    font-size: 0.9rem;
+    color: #475569;
+    margin-top: 0.5rem;
+}
+
+
+
+/* ===========================================
+   WORKS MARQUEE SCROLLER
+=========================================== */
+
+.works-scroller {
+    overflow: hidden;
+}
+
+.works-marquee {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.marquee-track {
+    display: flex;
+    gap: 2rem;
+    animation: marquee 25s linear infinite;
+}
+
+.marquee-card {
+    background: white;
+    padding: 1.5rem;
+    width: 260px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+}
+
+.marquee-card:hover {
+    transform: translateY(-6px);
+}
+
+@keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+
+
+/* ===========================================
+   CONCEPT GRID
+=========================================== */
+
+.concept-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.concept-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.07);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.concept-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 26px rgba(0,0,0,0.12);
+}
+
+
+
+/* ===========================================
+   INFLUENCE CLOUD
+=========================================== */
+
+.influence-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.influence-tag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    background: #e0f2fe;
+    color: #0369a1;
+    font-weight: 600;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.influence-tag:hover {
+    background: #bae6fd;
+    transform: scale(1.12);
+}
+
+/* Tag weight scaling */
+.influence-weight-10 { font-size: 1.6rem; }
+.influence-weight-9  { font-size: 1.45rem; }
+.influence-weight-8  { font-size: 1.3rem; }
+.influence-weight-7  { font-size: 1.2rem; }
+.influence-weight-6  { font-size: 1.1rem; }
+.influence-weight-5  { font-size: 1rem; }
+.influence-weight-4  { font-size: 0.9rem; }
+.influence-weight-3  { font-size: 0.85rem; }
+.influence-weight-2  { font-size: 0.8rem; }
+.influence-weight-1  { font-size: 0.75rem; }
+
+.influence-note {
+    text-align: center;
+    margin-top: 1rem;
+    color: #475569;
+}
+
+
+
+/* ===========================================
+   OUTRO
+=========================================== */
+
+.bio-outro {
+    text-align: center;
+    max-width: 900px;
+    margin: auto;
+}
+
+.bio-outro p {
+    font-size: 1.2rem;
+}
+
+
+
+/* ===========================================
+   RESPONSIVE
+=========================================== */
+
+@media (max-width: 900px) {
+    .bio-split {
+        flex-direction: column;
+        text-align: center;
+    }
+    .bio-split.reverse {
+        flex-direction: column;
+    }
+    .bio-split-image img {
+        max-width: 80%;
+        margin: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .bio-hero h1 {
+        font-size: 2.2rem;
+    }
+    .bio-hero .subtitle {
+        font-size: 1rem;
+    }
+}
