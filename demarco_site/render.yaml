@@ -1,6 +1,0 @@
-services:
-  - type: web
-    name: demarco-site
-    env: python
-    buildCommand: "./build.sh"
-    startCommand: "gunicorn demarco_site.wsgi:application"
