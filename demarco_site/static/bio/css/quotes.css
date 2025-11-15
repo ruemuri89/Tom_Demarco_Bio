@@ -1,0 +1,74 @@
+.quotes-hero {
+    text-align: center;
+    margin: 60px auto 40px;
+}
+
+.quotes-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.quotes-hero .subtitle {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.quotes-filter {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.quotes-filter select {
+    padding: 8px 12px;
+    font-size: 1rem;
+}
+
+.quotes-list {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.quote-card {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    border-left: 4px solid #3b82f6;
+}
+.quote-card {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.quote-text {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    font-weight: 500;
+    margin-bottom: 18px;
+}
+
+.quote-meta {
+    font-size: 0.7rem;
+    font-style: italic;
+    color: #555;
+    opacity: 0.85;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.quote-theme {
+    background: #3b82f6;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
