@@ -14,19 +14,25 @@
 
 <div id="ideas-lab-container">
     {% for concept in concepts %}
-        <div class="concept-card" data-aos="fade-up">
-            <h2>{{ concept.name }}</h2>
-            <p>{{ concept.summary }}</p>
+        {% if concept.slug != 'measurement-fallacies' and concept.slug != 'structured-analysis' %}
+            <div class="concept-card" data-aos="fade-up">
+                <h2>{{ concept.name }}</h2>
+                <p>{{ concept.summary }}</p>
 
-            <!-- Widget container -->
-            <div class="widget" id="{{ concept.slug }}"></div>
+                <!-- Widget container -->
+                {% if concept.slug == 'monte-carlo-projects' or concept.slug == 'project-risk-distributions' %}
+                    <div class="widget lazy-load" id="{{ concept.slug }}" data-widget="{{ concept.slug }}"></div>
+                {% else %}
+                    <div class="widget" id="{{ concept.slug }}"></div>
+                {% endif %}
 
-            <!-- Detailed explanation collapsible -->
-            <details data-aos="fade-in">
-                <summary>Learn more</summary>
-                <p>{{ concept.detailed_explanation }}</p>
-            </details>
-        </div>
+                <!-- Detailed explanation collapsible -->
+                <details data-aos="fade-in">
+                    <summary>Learn more</summary>
+                    <p>{{ concept.detailed_explanation }}</p>
+                </details>
+            </div>
+        {% endif %}
     {% endfor %}
 </div>
 
@@ -34,4 +40,30 @@
 
 {% block extra_js %}
 <script src="{% static 'js/ideas_lab.js' %}"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const lazyWidgets = document.querySelectorAll('.lazy-load');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const id = el.dataset.widget;
+
+                if (id === 'project-risk-distributions' && typeof buildRiskDistributionWidget === 'function') {
+                    buildRiskDistributionWidget(el);
+                }
+
+                if (id === 'monte-carlo-projects' && typeof buildMonteCarloWidget === 'function') {
+                    buildMonteCarloWidget(el);
+                }
+
+                observer.unobserve(el);
+            }
+        });
+    }, { threshold: 0.25 });
+
+    lazyWidgets.forEach(w => observer.observe(w));
+});
+</script>
 {% endblock %}

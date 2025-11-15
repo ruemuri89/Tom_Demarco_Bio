@@ -237,6 +237,43 @@ function buildMonteCarloWidget(root) {
 
 
 /* ===============================
+   RISK DISTRIBUTION WIDGET
+   =============================== */
+function buildRiskDistributionWidget(root) {
+    root.innerHTML = `
+        <button id="runRiskDist">Generate Risk Distribution</button>
+        <canvas id="riskChart"></canvas>
+    `;
+
+    const btn = root.querySelector('#runRiskDist');
+    const ctx = root.querySelector('#riskChart');
+
+    let chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Optimistic', 'Most Likely', 'Pessimistic'],
+            datasets: [{
+                label: 'Duration (days)',
+                data: [0, 0, 0],
+                backgroundColor: ['#34d399', '#3b82f6', '#ef4444']
+            }]
+        }
+    });
+
+    function generate() {
+        const optimistic = Math.round(20 + Math.random() * 10);
+        const likely = Math.round(40 + Math.random() * 20);
+        const pessimistic = Math.round(70 + Math.random() * 40);
+
+        chart.data.datasets[0].data = [optimistic, likely, pessimistic];
+        chart.update();
+    }
+
+    btn.addEventListener('click', generate);
+}
+
+
+/* ===============================
    AUTO-WIRE WIDGETS TO SLUGS
    =============================== */
 document.addEventListener("DOMContentLoaded", () => {
@@ -252,7 +289,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (id === "cost-of-delay") buildCostOfDelayWidget(widget);
 
-        if (id === "project-risk-distributions") buildMonteCarloWidget(widget);
+        if (id === "project-risk-distributions") buildRiskDistributionWidget(widget);
         if (id === "monte-carlo-projects") buildMonteCarloWidget(widget);
     });
 });

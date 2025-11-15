@@ -29,12 +29,7 @@
 <main class="container">
     {% block content %}{% endblock %}
 </main>
-
-<footer class="site-footer">
-    <div class="container">
-        <p>&copy; {{ now|date:"Y" }} Tom DeMarco Interactive Biography</p>
-    </div>
-</footer>
+{% comment %} Removed copyright at bottom of the page {% endcomment %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="{% static 'js/ideas_lab_animations.js' %}"></script>
 

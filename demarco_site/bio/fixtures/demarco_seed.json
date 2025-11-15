@@ -109,6 +109,56 @@
       "theme": "risk"
     }
   },
+  {
+    "model": "bio.quote",
+    "pk": 5,
+    "fields": {
+      "text": "The manager’s function is not to make people work, but to make it possible for people to work.",
+      "source": "Peopleware",
+      "year": 1987,
+      "theme": "management"
+    }
+  },
+  {
+    "model": "bio.quote",
+    "pk": 6,
+    "fields": {
+      "text": "The fundamental response to change is not logical, but emotional.",
+      "source": "Peopleware",
+      "year": 1987,
+      "theme": "peopleware"
+    }
+  },
+  {
+    "model": "bio.quote",
+    "pk": 7,
+    "fields": {
+      "text": "Quality takes time and reduces quantity, so it makes you, in a sense, less efficient. The efficiency‑optimized organization recognizes quality as its enemy.",
+      "source": "Slack",
+      "year": 2001,
+      "theme": "quality"
+    }
+  },
+  {
+    "model": "bio.quote",
+    "pk": 8,
+    "fields": {
+      "text": "People under time pressure don’t think faster.",
+      "source": "Slack",
+      "year": 2001,
+      "theme": "productivity"
+    }
+  },
+  {
+    "model": "bio.quote",
+    "pk": 9,
+    "fields": {
+      "text": "The purpose of a team is not goal attainment but goal alignment.",
+      "source": "Peopleware",
+      "year": 1987,
+      "theme": "teamwork"
+    }
+  },
 
   {
     "model": "bio.timelineevent",

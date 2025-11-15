@@ -39,16 +39,22 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.06);
     border-left: 4px solid #3b82f6;
 }
+.quote-card {
+    animation: fadeInUp 0.6s ease forwards;
+}
 
 .quote-text {
-    font-size: 1.3rem;
-    line-height: 1.6;
-    margin-bottom: 15px;
+    font-size: 1.45rem;
+    line-height: 1.7;
+    font-weight: 500;
+    margin-bottom: 18px;
 }
 
 .quote-meta {
-    font-size: 0.9rem;
-    color: #666;
+    font-size: 0.65rem;
+    font-style: italic;
+    color: #555;
+    opacity: 0.85;
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
@@ -60,4 +66,9 @@
     padding: 2px 8px;
     border-radius: 4px;
     font-size: 0.75rem;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
