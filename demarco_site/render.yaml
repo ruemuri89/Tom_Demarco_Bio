@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: tom-demarco-bio
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn demarco_site.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: DEBUG
+        value: False
