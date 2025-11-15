@@ -1,0 +1,1 @@
+web: gunicorn demarco_site.wsgi:application
