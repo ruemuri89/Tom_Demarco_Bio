@@ -77,7 +77,6 @@ class LegacyView(TemplateView):
         ctx["works"] = Work.objects.order_by("year_published", "title")
         return ctx
 
-
 class QuoteListView(ListView):
     model = Quote
     template_name = "bio/quotes.html"
