@@ -62,18 +62,27 @@ WSGI_APPLICATION = 'demarco_site.wsgi.application'
 # ------------------------------------------------------------
 # ✅ CORRECT DATABASE CONFIGURATION (LOCAL + RENDER)
 # ------------------------------------------------------------
+# ✅ CORRECT DATABASE CONFIGURATION (LOCAL + RENDER)
+# ------------------------------------------------------------
 RENDER = os.getenv("RENDER")
+
+# Fix postgres:// -> postgresql:// scheme
 database_url = os.environ.get('DATABASE_URL', '')
 if database_url.startswith('postgres://'):
     database_url = database_url.replace('postgres://', 'postgresql://', 1)
+
+# Set the corrected URL back to environment
+if database_url:
+    os.environ['DATABASE_URL'] = database_url
+
 DATABASES = {
     "default": dj_database_url.config(
-        default=database_url or "postgresql://postgres:postgres@localhost:5432/demarco_db",
+        default="postgresql://postgres:postgres@localhost:5432/demarco_db",
         conn_max_age=600,
-        ssl_require=bool(RENDER),      # Render requires SSL, local does not
+        ssl_require=bool(RENDER),
     )
 }
-# ------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------
 
 
 # ------------------------------------------------------------
