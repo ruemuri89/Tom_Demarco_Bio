@@ -81,13 +81,22 @@ WSGI_APPLICATION = 'demarco_site.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default='postgresql://postgres:postgres@localhost:5432/demarco_db',
+#         conn_max_age=600
+#     )
+# }
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://postgres:postgres@localhost:5432/demarco_db',
-        conn_max_age=600
+        default="postgresql://postgres:postgres@localhost:5432/demarco",  # safe local fallback
+        conn_max_age=600,
+        ssl_require=bool(os.getenv("RENDER"))  # enable SSL only on Render
     )
 }
-
 
 
 # Password validation
