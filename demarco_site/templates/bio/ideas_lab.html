@@ -5,6 +5,7 @@
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'css/ideas_lab.css' %}">
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %}
 
@@ -14,25 +15,23 @@
 
 <div id="ideas-lab-container">
     {% for concept in concepts %}
-        {% if concept.slug != 'measurement-fallacies' and concept.slug != 'structured-analysis' %}
-            <div class="concept-card" data-aos="fade-up">
-                <h2>{{ concept.name }}</h2>
-                <p>{{ concept.summary }}</p>
+        <div class="concept-card" data-aos="fade-up">
+            <h2>{{ concept.name }}</h2>
+            <p>{{ concept.summary }}</p>
 
-                <!-- Widget container -->
-                {% if concept.slug == 'monte-carlo-projects' or concept.slug == 'project-risk-distributions' %}
-                    <div class="widget lazy-load" id="{{ concept.slug }}" data-widget="{{ concept.slug }}"></div>
-                {% else %}
-                    <div class="widget" id="{{ concept.slug }}"></div>
-                {% endif %}
+            <!-- Widget container -->
+            {% if concept.slug == 'monte-carlo-projects' or concept.slug == 'project-risk-distributions' %}
+                <div class="widget lazy-load" id="{{ concept.slug }}" data-widget="{{ concept.slug }}"></div>
+            {% else %}
+                <div class="widget" id="{{ concept.slug }}"></div>
+            {% endif %}
 
-                <!-- Detailed explanation collapsible -->
-                <details data-aos="fade-in">
-                    <summary>Learn more</summary>
-                    <p>{{ concept.detailed_explanation }}</p>
-                </details>
-            </div>
-        {% endif %}
+            <!-- Detailed explanation collapsible -->
+            <details data-aos="fade-in">
+                <summary>Learn more</summary>
+                <p>{{ concept.detailed_explanation }}</p>
+            </details>
+        </div>
     {% endfor %}
 </div>
 
@@ -50,6 +49,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 const el = entry.target;
                 const id = el.dataset.widget;
 
+                // 🚫 Prevent Peopleware widget from running (safety check)
+                if (id === 'peopleware') {
+                    observer.unobserve(el);
+                    return;
+                }
+
                 if (id === 'project-risk-distributions' && typeof buildRiskDistributionWidget === 'function') {
                     buildRiskDistributionWidget(el);
                 }
@@ -63,7 +68,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }, { threshold: 0.25 });
 
-    lazyWidgets.forEach(w => observer.observe(w));
+    lazyWidgets.forEach(w => {
+        // Extra safety: do not observe peopleware even if it appears later
+        if (w.dataset.widget !== 'peopleware') {
+            observer.observe(w);
+        }
+    });
 });
 </script>
 {% endblock %}

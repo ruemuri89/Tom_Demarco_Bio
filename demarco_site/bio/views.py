@@ -61,7 +61,9 @@ class IdeasLabView(TemplateView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        ctx["concepts"] = Concept.objects.order_by("name")
+        
+        excluded_slugs = ['measurement-fallacies', 'structured-analysis', 'peopleware']
+        ctx["concepts"] = Concept.objects.exclude(slug__in=excluded_slugs).order_by("name")
         return ctx
 
 
