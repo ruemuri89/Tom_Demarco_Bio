@@ -58,22 +58,44 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'demarco_site.wsgi.application'
 
-
-# ------------------------------------------------------------
-# ✅ CORRECT DATABASE CONFIGURATION (LOCAL + RENDER)
 # ------------------------------------------------------------
 # ✅ CORRECT DATABASE CONFIGURATION (LOCAL + RENDER)
 # ------------------------------------------------------------
 RENDER = os.getenv("RENDER")
 
-# Fix postgres:// -> postgresql:// scheme
+# Fix postgres:// -> postgresql:// scheme and encode password
 database_url = os.environ.get('DATABASE_URL', '')
-if database_url.startswith('postgres://'):
-    database_url = database_url.replace('postgres://', 'postgresql://', 1)
 
-# Set the corrected URL back to environment
 if database_url:
-    os.environ['DATABASE_URL'] = database_url
+    # Fix scheme
+    if database_url.startswith('postgres://'):
+        database_url = database_url.replace('postgres://', 'postgresql://', 1)
+    
+    # Parse and re-encode URL to handle special characters
+    from urllib.parse import urlparse, quote, urlunparse
+    try:
+        parsed = urlparse(database_url)
+        # Encode the password if it exists
+        if parsed.password:
+            # Reconstruct netloc with encoded password
+            netloc = f"{parsed.username}:{quote(parsed.password, safe='')}@{parsed.hostname}"
+            if parsed.port:
+                netloc += f":{parsed.port}"
+            
+            # Reconstruct the URL
+            database_url = urlunparse((
+                parsed.scheme,
+                netloc,
+                parsed.path,
+                parsed.params,
+                parsed.query,
+                parsed.fragment
+            ))
+        
+        os.environ['DATABASE_URL'] = database_url
+        print(f"Encoded DATABASE_URL: {database_url[:20]}...{database_url[-20:]}")
+    except Exception as e:
+        print(f"Error encoding DATABASE_URL: {e}")
 
 DATABASES = {
     "default": dj_database_url.config(
@@ -82,7 +104,7 @@ DATABASES = {
         ssl_require=bool(RENDER),
     )
 }
-# --------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------
 
 
 # ------------------------------------------------------------
