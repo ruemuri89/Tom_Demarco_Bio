@@ -8,6 +8,7 @@ set -o errexit
 pip install --upgrade pip
 pip install -r requirements.txt
 
+
 # Run database migrations
 python manage.py migrate --noinput
 
@@ -16,6 +17,3 @@ python manage.py loaddata demarco_seed.json || echo "Seed data already loaded or
 
 # Collect static files
 python manage.py collectstatic --noinput
-
-# Run database migrations
-python manage.py migrate --noinput
