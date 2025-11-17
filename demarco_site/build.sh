@@ -12,7 +12,10 @@ pip install -r requirements.txt
 python manage.py migrate --noinput
 
 echo "Loading seed data..."
-python manage.py loaddata demarco_seed.json || echo "Seed data already loeaded or skipped."
+python manage.py loaddata demarco_seed.json || echo "Seed data already loaded or skipped."
 
 # Collect static files
 python manage.py collectstatic --noinput
+
+# Run database migrations
+python manage.py migrate --noinput
