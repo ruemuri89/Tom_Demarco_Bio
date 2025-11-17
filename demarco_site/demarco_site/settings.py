@@ -2,6 +2,8 @@ import os
 from pathlib import Path
 import dj_database_url
 
+print("DATABASE_URL:", os.environ.get('DATABASE_URL', 'NOT SET'))
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-o$^#$lwzt#xlz_5z&(-^%k2pel1q!nq--)a-scl@cjz65vuayq'
@@ -61,10 +63,12 @@ WSGI_APPLICATION = 'demarco_site.wsgi.application'
 # ✅ CORRECT DATABASE CONFIGURATION (LOCAL + RENDER)
 # ------------------------------------------------------------
 RENDER = os.getenv("RENDER")
-
+database_url = os.environ.get('DATABASE_URL', '')
+if database_url.startswith('postgres://'):
+    database_url = database_url.replace('postgres://', 'postgresql://', 1)
 DATABASES = {
     "default": dj_database_url.config(
-        default="postgresql://postgres:postgres@localhost:5432/demarco_db",
+        default=database_url or "postgresql://postgres:postgres@localhost:5432/demarco_db",
         conn_max_age=600,
         ssl_require=bool(RENDER),      # Render requires SSL, local does not
     )
