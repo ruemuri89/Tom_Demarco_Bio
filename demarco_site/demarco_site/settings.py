@@ -88,16 +88,20 @@ WSGI_APPLICATION = 'demarco_site.wsgi.application'
 #     )
 # }
 
+
+# Determine if we're running on Render (Render sets the RENDER variable)
+RENDER = os.getenv("RENDER", None)
+
+# Get DATABASE_URL from environment (Render provides this automatically)
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default="postgresql://postgres:postgres@localhost:5432/demarco",  # safe local fallback
+    "default": dj_database_url.config(
+        default="postgresql://postgres:postgres@localhost:5432/demarco_db",  # Local fallback
         conn_max_age=600,
-        ssl_require=bool(os.getenv("RENDER"))  # enable SSL only on Render
+        ssl_require=bool(RENDER),   # Only require SSL on Render
     )
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
